@@ -1,15 +1,16 @@
 package main
 
 import (
-	"strconv"
+	"math/rand"
 
 	"github.com/emersion/go-vcard"
+	"github.com/google/uuid"
 	"github.com/spejder/ms-vcard/odoo"
 )
 
 func toCard(profile odoo.MemberProfile) vcard.Card {
 	card := vcard.Card{}
-	card.SetValue(vcard.FieldUID, uuid(profile.Id.Get()))
+	card.SetValue(vcard.FieldUID, getUUID(profile.Id.Get()))
 
 	//nolint:exhaustivestruct
 	card.AddName(&vcard.Name{
@@ -47,7 +48,7 @@ func toCard(profile odoo.MemberProfile) vcard.Card {
 	}
 
 	for _, id := range profile.RelationIds.Get() {
-		card.AddValue("RELATED", uuid(id))
+		card.AddValue("RELATED", getUUID(id))
 	}
 
 	vcard.ToV4(card)
@@ -55,7 +56,12 @@ func toCard(profile odoo.MemberProfile) vcard.Card {
 	return card
 }
 
-func uuid(id int64) string {
-	//nolint:gomnd
-	return "urn:uuid:ms-" + strconv.FormatInt(id, 10)
+// getUUID creates a deterministic UUID from Odoos int64 profile id.
+func getUUID(id int64) string {
+	//nolint:gosec // we don't use random for security
+	rnd := rand.New(rand.NewSource(id))
+	uuid.SetRand(rnd)
+	u, _ := uuid.NewRandomFromReader(rnd)
+
+	return u.URN()
 }
