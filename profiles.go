@@ -16,6 +16,7 @@ func profiles(c *odoo.Client) (*odoo.MemberProfiles, error) {
 		Add("state", "!=", "waiting")
 
 	options := odoo.NewOptions().FetchFields(
+		"birthdate",
 		"city",
 		"email",
 		"firstname",

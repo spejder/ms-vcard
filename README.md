@@ -41,6 +41,7 @@ fra data i Medlemsservice.
 BEGIN:VCARD
 VERSION:4.0
 ADR:;;Ejbysvinget 18;Glostrup;;2600;
+BDAY:19730430
 EMAIL:arne@arnested.dk
 N:Jørgensen;Arne;;;
 NICKNAME:Boga

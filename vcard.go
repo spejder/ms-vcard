@@ -35,6 +35,10 @@ func toCard(profile odoo.MemberProfile) vcard.Card {
 		card.SetValue("NICKNAME", profile.ScoutName.Get())
 	}
 
+	if profile.Birthdate != nil {
+		card.SetValue("BDAY", profile.Birthdate.Get().Format("20060102"))
+	}
+
 	if profile.OrganizationId != nil {
 		card.SetValue("ORG", profile.OrganizationId.Name)
 	}
