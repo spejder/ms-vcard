@@ -23,7 +23,7 @@ version: "2"
 
 services:
   web:
-    build: spejder/ms-vcard:latest
+    image: spejder/ms-vcard:latest
     restart: always
     ports:
       - '80/tcp'
