@@ -67,7 +67,7 @@ func handler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	enc := vcard.NewEncoder(w)
-	w.Header().Set("Content-Type", "text/vcard")
+	w.Header().Set("Content-Type", "text/vcard; charset=utf-8")
 
 	for _, profile := range *profiles {
 		card := toCard(profile)
