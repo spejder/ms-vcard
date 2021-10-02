@@ -17,6 +17,15 @@ func toCard(profile odoo.MemberProfile) vcard.Card {
 		GivenName:  profile.Firstname.Get(),
 	})
 
+	if profile.Street != nil {
+		//nolint:exhaustivestruct
+		card.AddAddress(&vcard.Address{
+			StreetAddress: profile.Street.Get(),
+			Locality:      profile.City.Get(),
+			PostalCode:    profile.Zip.Get(),
+		})
+	}
+
 	if profile.ScoutName != nil {
 		card.SetValue("NICKNAME", profile.ScoutName.Get())
 	}
