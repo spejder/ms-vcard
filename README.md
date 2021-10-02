@@ -44,6 +44,7 @@ ADR:;;Ejbysvinget 18;Glostrup;;2600;
 EMAIL:arne@arnested.dk
 N:Jørgensen;Arne;;;
 NICKNAME:Boga
+NOTE:Medlemsnummer: 2014080
 ORG:Ejby Gruppe
 RELATED:urn:uuid:be90ae96-4c60-482c-b8fa-8dab6678dd60
 TEL;TYPE=cell:+4521650113

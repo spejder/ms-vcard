@@ -18,6 +18,10 @@ func toCard(profile odoo.MemberProfile) vcard.Card {
 		GivenName:  profile.Firstname.Get(),
 	})
 
+	if profile.MemberNumber != nil {
+		card.SetValue("NOTE", "Medlemsnummer: "+profile.MemberNumber.Get())
+	}
+
 	if profile.Street != nil {
 		//nolint:exhaustivestruct
 		card.AddAddress(&vcard.Address{
