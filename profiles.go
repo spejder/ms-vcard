@@ -16,6 +16,7 @@ func profiles(c *odoo.Client) (*odoo.MemberProfiles, error) {
 		Add("state", "!=", "waiting")
 
 	options := odoo.NewOptions().FetchFields(
+		"city",
 		"email",
 		"firstname",
 		"id",
@@ -25,6 +26,8 @@ func profiles(c *odoo.Client) (*odoo.MemberProfiles, error) {
 		"phone",
 		"relation_ids",
 		"scout_name",
+		"street",
+		"zip",
 	)
 
 	profiles, err := c.FindMemberProfiles(criteria, options)
