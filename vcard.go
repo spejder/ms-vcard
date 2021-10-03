@@ -28,7 +28,6 @@ func toCard(profile odoo.MemberProfile) vcard.Card {
 			StreetAddress: profile.Street.Get(),
 			Locality:      profile.City.Get(),
 			PostalCode:    profile.Zip.Get(),
-			Country:       profile.CountryId.Name,
 		})
 	}
 

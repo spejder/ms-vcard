@@ -18,7 +18,6 @@ func profiles(c *odoo.Client) (*odoo.MemberProfiles, error) {
 	options := odoo.NewOptions().FetchFields(
 		"birthdate",
 		"city",
-		"country_id",
 		"email",
 		"firstname",
 		"id",
