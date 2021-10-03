@@ -12,8 +12,7 @@ func profiles(c *odoo.Client) (*odoo.MemberProfiles, error) {
 	criteria.
 		Add("state", "!=", "inactive").
 		Add("state", "!=", "cancelled").
-		Add("state", "!=", "draft").
-		Add("state", "!=", "waiting")
+		Add("state", "!=", "draft")
 
 	options := odoo.NewOptions().FetchFields(
 		"birthdate",
