@@ -57,7 +57,7 @@ func toCard(profile odoo.MemberProfile) vcard.Card {
 	}
 
 	for _, id := range profile.RelationIds.Get() {
-		card.AddValue("RELATED", getUUID(id))
+		card.AddValue("RELATED;TYPE=kin", getUUID(id))
 	}
 
 	vcard.ToV4(card)
