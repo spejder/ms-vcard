@@ -32,7 +32,7 @@ func toCard(profile odoo.MemberProfile) vcard.Card {
 	}
 
 	if profile.ScoutName != nil {
-		card.SetValue("NICKNAME", profile.ScoutName.Get())
+		card.SetValue("NICKNAME;TYPE=Spejdernavn", profile.ScoutName.Get())
 	}
 
 	if profile.Birthdate != nil {
