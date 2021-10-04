@@ -1,8 +1,10 @@
 package main
 
 import (
+	"fmt"
 	"net/http"
 	"os"
+	"strconv"
 
 	"github.com/emersion/go-vcard"
 	"github.com/spejder/ms-vcard/odoo"
@@ -59,6 +61,16 @@ func handler(w http.ResponseWriter, r *http.Request) {
 
 	defer c.Close()
 
+	uid := r.URL.Query().Get("uid")
+	companyID := r.URL.Query().Get("company_id")
+
+	err = switchCompany(c, uid, companyID)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+
+		return
+	}
+
 	profiles, err := profiles(c)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
@@ -79,4 +91,35 @@ func handler(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 	}
+}
+
+func switchCompany(c *odoo.Client, uidParam string, companyIDParam string) error {
+	if uidParam == "" || companyIDParam == "" {
+		return nil
+	}
+
+	//nolint:gomnd
+	uid, err := strconv.ParseInt(uidParam, 10, 64)
+	if err != nil {
+		return fmt.Errorf("switching company parameters: %w", err)
+	}
+
+	//nolint:gomnd
+	companyID, err := strconv.ParseInt(companyIDParam, 10, 64)
+	if err != nil {
+		return fmt.Errorf("switching company parameters: %w", err)
+	}
+
+	err = c.Update(
+		odoo.ResUsersModel,
+		[]int64{uid},
+		//nolint:exhaustivestruct
+		&odoo.ResUsers{
+			CompanyId: &odoo.Many2One{ID: companyID},
+		})
+	if err != nil {
+		return fmt.Errorf("switching company: %w", err)
+	}
+
+	return nil
 }
