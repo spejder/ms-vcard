@@ -31,6 +31,7 @@ func getAddr() string {
 	return addr
 }
 
+//nolint:funlen
 func handler(w http.ResponseWriter, r *http.Request) {
 	defer func() {
 		if r := recover(); r != nil {
@@ -69,6 +70,15 @@ func handler(w http.ResponseWriter, r *http.Request) {
 
 		return
 	}
+
+	defer func() {
+		postCompanyID := r.URL.Query().Get("post_company_id")
+
+		err = switchCompany(c, postCompanyID)
+		if err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+		}
+	}()
 
 	profiles, err := profiles(c)
 	if err != nil {
