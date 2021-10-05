@@ -7,7 +7,7 @@ import (
 	"strconv"
 
 	"github.com/emersion/go-vcard"
-	"github.com/spejder/ms-vcard/odoo"
+	"github.com/spejder/ms-vcard/internal/odoo"
 )
 
 func main() {

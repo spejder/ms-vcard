@@ -18,7 +18,7 @@ jobs:
     - name: Run markdownlint
       uses: actionshub/markdownlint@2.0.2
       with:
-        filesToIgnoreRegex: "odoo\\/.*"
+        filesToIgnoreRegex: "internal\\/odoo\\/.*"
 
   golangci:
     name: go

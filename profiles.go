@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 
-	"github.com/spejder/ms-vcard/odoo"
+	"github.com/spejder/ms-vcard/internal/odoo"
 )
 
 func profiles(c *odoo.Client) (*odoo.MemberProfiles, error) {

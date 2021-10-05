@@ -5,7 +5,7 @@ import (
 
 	"github.com/emersion/go-vcard"
 	"github.com/google/uuid"
-	"github.com/spejder/ms-vcard/odoo"
+	"github.com/spejder/ms-vcard/internal/odoo"
 )
 
 func toCard(profile odoo.MemberProfile) vcard.Card {
