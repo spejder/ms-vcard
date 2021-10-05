@@ -8,7 +8,7 @@ ENV GOOS=linux
 RUN apk --no-cache add git=~2
 
 COPY *.go go.mod go.sum /build/github.com/spejder/ms-vcard/
-COPY odoo/ /build/github.com/spejder/ms-vcard/odoo/
+COPY internal/odoo/ /build/github.com/spejder/ms-vcard/internal/odoo/
 
 RUN go build
 

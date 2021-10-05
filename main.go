@@ -7,7 +7,7 @@ import (
 	"strconv"
 
 	"github.com/emersion/go-vcard"
-	"github.com/spejder/ms-vcard/odoo"
+	"github.com/spejder/ms-vcard/internal/odoo"
 )
 
 func main() {
@@ -61,10 +61,9 @@ func handler(w http.ResponseWriter, r *http.Request) {
 
 	defer c.Close()
 
-	uid := r.URL.Query().Get("uid")
 	companyID := r.URL.Query().Get("company_id")
 
-	err = switchCompany(c, uid, companyID)
+	err = switchCompany(c, companyID)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 
@@ -93,15 +92,9 @@ func handler(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-func switchCompany(c *odoo.Client, uidParam string, companyIDParam string) error {
-	if uidParam == "" || companyIDParam == "" {
+func switchCompany(c *odoo.Client, companyIDParam string) error {
+	if companyIDParam == "" {
 		return nil
-	}
-
-	//nolint:gomnd
-	uid, err := strconv.ParseInt(uidParam, 10, 64)
-	if err != nil {
-		return fmt.Errorf("switching company parameters: %w", err)
 	}
 
 	//nolint:gomnd
@@ -112,7 +105,7 @@ func switchCompany(c *odoo.Client, uidParam string, companyIDParam string) error
 
 	err = c.Update(
 		odoo.ResUsersModel,
-		[]int64{uid},
+		[]int64{c.UID()},
 		//nolint:exhaustivestruct
 		&odoo.ResUsers{
 			CompanyId: &odoo.Many2One{ID: companyID},
