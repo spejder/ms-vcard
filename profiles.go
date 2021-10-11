@@ -9,10 +9,7 @@ import (
 func profiles(c *odoo.Client) (*odoo.MemberProfiles, error) {
 	criteria := odoo.NewCriteria().Add("can_access_contact_info", "=", true)
 
-	criteria.
-		Add("state", "!=", "inactive").
-		Add("state", "!=", "cancelled").
-		Add("state", "!=", "draft")
+	criteria.Add("state", "!=", "inactive").Add("state", "!=", "cancelled")
 
 	options := odoo.NewOptions().FetchFields(
 		"birthdate",
