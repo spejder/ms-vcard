@@ -3,7 +3,7 @@ module github.com/spejder/ms-vcard
 go 1.17
 
 require (
-	bitbucket.org/long174/go-odoo v1.6.0
+	bitbucket.org/long174/go-odoo v1.6.1
 	github.com/emersion/go-vcard v0.0.0-20210521075357-3445b9171995
 	github.com/google/uuid v1.3.0
 	github.com/iancoleman/strcase v0.0.0-20191112232945-16388991a334
