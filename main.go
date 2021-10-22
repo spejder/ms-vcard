@@ -31,7 +31,7 @@ func getAddr() string {
 	return addr
 }
 
-//nolint:funlen
+//nolint:funlen,cyclop
 func handler(w http.ResponseWriter, r *http.Request) {
 	defer func() {
 		if r := recover(); r != nil {
@@ -91,7 +91,17 @@ func handler(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "text/vcard; charset=utf-8")
 
 	for _, profile := range *profiles {
-		card := toCard(profile)
+		relIDs := profile.RelationAllIds.Get()
+		relations := &odoo.ResPartnerRelationAlls{}
+
+		if r.URL.Query().Has("relations") && len(relIDs) > 0 {
+			relations, err = c.GetResPartnerRelationAlls(relIDs)
+			if err != nil {
+				relations = &odoo.ResPartnerRelationAlls{}
+			}
+		}
+
+		card := toCard(profile, relations)
 
 		err = enc.Encode(card)
 		if err != nil {

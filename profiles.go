@@ -25,6 +25,8 @@ func profiles(c *odoo.Client) (*odoo.MemberProfiles, error) {
 		"mobile_clean",
 		"organization_id",
 		"phone",
+		"partner_id",
+		"relation_all_ids",
 		"relation_ids",
 		"scout_name",
 		"street",

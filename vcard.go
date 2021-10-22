@@ -8,9 +8,9 @@ import (
 	"github.com/spejder/ms-vcard/internal/odoo"
 )
 
-func toCard(profile odoo.MemberProfile) vcard.Card {
+func toCard(profile odoo.MemberProfile, relations *odoo.ResPartnerRelationAlls) vcard.Card {
 	card := vcard.Card{}
-	card.SetValue(vcard.FieldUID, getUUID(profile.Id.Get()))
+	card.SetValue(vcard.FieldUID, getUUID(profile.PartnerId.ID))
 
 	//nolint:exhaustivestruct
 	card.AddName(&vcard.Name{
@@ -55,8 +55,8 @@ func toCard(profile odoo.MemberProfile) vcard.Card {
 		card.SetValue("TEL;TYPE=cell", profile.MobileClean.Get())
 	}
 
-	for _, id := range profile.RelationIds.Get() {
-		card.AddValue("RELATED;TYPE=kin", getUUID(id))
+	for _, relation := range *relations {
+		card.AddValue("RELATED;TYPE=kin", getUUID(relation.OtherPartnerId.ID))
 	}
 
 	vcard.ToV4(card)
