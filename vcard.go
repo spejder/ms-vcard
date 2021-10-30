@@ -8,6 +8,7 @@ import (
 	"github.com/spejder/ms-vcard/internal/ms"
 )
 
+//nolint:funlen
 func toCard(profile ms.MemberProfile, relations *ms.ResPartnerRelationAlls) vcard.Card {
 	card := vcard.Card{}
 	card.SetValue(vcard.FieldUID, getUUID(profile.PartnerId.ID))
@@ -19,7 +20,16 @@ func toCard(profile ms.MemberProfile, relations *ms.ResPartnerRelationAlls) vcar
 	})
 
 	if profile.MemberNumber != nil {
-		card.SetValue("NOTE", "Medlemsnummer: "+profile.MemberNumber.Get())
+		//nolint:exhaustivestruct
+		card.Set("NOTE", &vcard.Field{
+			Value: profile.MemberNumber.Get(),
+			Group: "item2",
+		})
+		//nolint:exhaustivestruct
+		card.Set("X-ABLabel", &vcard.Field{
+			Value: "_$!<Medlemsnummer>!$_",
+			Group: "item2",
+		})
 	}
 
 	if profile.Street != nil {
