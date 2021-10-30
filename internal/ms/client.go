@@ -13,5 +13,5 @@ type Client struct {
 
 // UID of the authenticated client.
 func (c *Client) UID() int64 {
-	return reflect.ValueOf(c).FieldByName("uid").Int()
+	return reflect.ValueOf(c.Client).FieldByName("uid").Int()
 }
