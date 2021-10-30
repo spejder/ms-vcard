@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"math/rand"
 
 	"github.com/emersion/go-vcard"
@@ -22,7 +23,7 @@ func toCard(profile ms.MemberProfile, relations *ms.ResPartnerRelationAlls) vcar
 	if profile.MemberNumber != nil {
 		//nolint:exhaustivestruct
 		card.Set("NOTE", &vcard.Field{
-			Value: profile.MemberNumber.Get(),
+			Value: fmt.Sprintf("Medlemsnummer: %s", profile.MemberNumber.Get()),
 			Group: "item2",
 		})
 		//nolint:exhaustivestruct
