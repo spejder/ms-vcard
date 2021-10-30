@@ -57,11 +57,25 @@ func toCard(profile ms.MemberProfile, relations *ms.ResPartnerRelationAlls) vcar
 	}
 
 	if profile.Phone != nil {
-		card.SetValue("TEL;TYPE=home", profile.Phone.Get())
+		home := vcard.Params{}
+		home.Set("TYPE", "home")
+
+		//nolint:exhaustivestruct
+		card.Set("TEL", &vcard.Field{
+			Value:  profile.Phone.Get(),
+			Params: home,
+		})
 	}
 
 	if profile.MobileClean != nil {
-		card.SetValue("TEL;TYPE=cell", profile.MobileClean.Get())
+		cell := vcard.Params{}
+		cell.Set("TYPE", "cell")
+
+		//nolint:exhaustivestruct
+		card.Set("TEL", &vcard.Field{
+			Value:  profile.MobileClean.Get(),
+			Params: cell,
+		})
 	}
 
 	for _, relation := range *relations {
