@@ -9,6 +9,17 @@ import (
 	"github.com/spejder/ms-vcard/internal/ms"
 )
 
+type group int
+
+const (
+	ScoutName group = iota + 1
+	MemberNumber
+)
+
+func (g group) Group() string {
+	return fmt.Sprintf("item%d", g)
+}
+
 //nolint:funlen
 func toCard(profile ms.MemberProfile, relations *ms.ResPartnerRelationAlls) vcard.Card {
 	card := vcard.Card{}
@@ -24,12 +35,12 @@ func toCard(profile ms.MemberProfile, relations *ms.ResPartnerRelationAlls) vcar
 		//nolint:exhaustivestruct
 		card.Set("NOTE", &vcard.Field{
 			Value: fmt.Sprintf("Medlemsnummer: %s", profile.MemberNumber.Get()),
-			Group: "item2",
+			Group: MemberNumber.Group(),
 		})
 		//nolint:exhaustivestruct
-		card.Set("X-ABLabel", &vcard.Field{
+		card.Add("X-ABLabel", &vcard.Field{
 			Value: "_$!<Medlemsnummer>!$_",
-			Group: "item2",
+			Group: MemberNumber.Group(),
 		})
 	}
 
@@ -46,12 +57,12 @@ func toCard(profile ms.MemberProfile, relations *ms.ResPartnerRelationAlls) vcar
 		//nolint:exhaustivestruct
 		card.Set("NICKNAME", &vcard.Field{
 			Value: profile.ScoutName.Get(),
-			Group: "item1",
+			Group: ScoutName.Group(),
 		})
 		//nolint:exhaustivestruct
-		card.Set("X-ABLabel", &vcard.Field{
+		card.Add("X-ABLabel", &vcard.Field{
 			Value: "_$!<Spejdernavn>!$_",
-			Group: "item1",
+			Group: ScoutName.Group(),
 		})
 	}
 
