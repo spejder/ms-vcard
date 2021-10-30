@@ -5,10 +5,10 @@ import (
 
 	"github.com/emersion/go-vcard"
 	"github.com/google/uuid"
-	"github.com/spejder/ms-vcard/internal/odoo"
+	"github.com/spejder/ms-vcard/internal/ms"
 )
 
-func toCard(profile odoo.MemberProfile, relations *odoo.ResPartnerRelationAlls) vcard.Card {
+func toCard(profile ms.MemberProfile, relations *ms.ResPartnerRelationAlls) vcard.Card {
 	card := vcard.Card{}
 	card.SetValue(vcard.FieldUID, getUUID(profile.PartnerId.ID))
 

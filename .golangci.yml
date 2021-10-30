@@ -2,7 +2,7 @@ linters:
   enable-all: true
 run:
   skip-dirs:
-    - internal/odoo
+    - internal/ms
 linters-settings:
   exhaustive:
     # indicates that switch statements are to be considered exhaustive if a
