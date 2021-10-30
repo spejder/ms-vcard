@@ -3,10 +3,11 @@ package main
 import (
 	"fmt"
 
-	"github.com/spejder/ms-vcard/internal/odoo"
+	"bitbucket.org/long174/go-odoo"
+	"github.com/spejder/ms-vcard/internal/ms"
 )
 
-func profiles(c *odoo.Client) (*odoo.MemberProfiles, error) {
+func profiles(c *ms.Client) (*ms.MemberProfiles, error) {
 	criteria := odoo.NewCriteria().Add("can_access_contact_info", "=", true)
 
 	criteria.
@@ -35,7 +36,7 @@ func profiles(c *odoo.Client) (*odoo.MemberProfiles, error) {
 
 	profiles, err := c.FindMemberProfiles(criteria, options)
 	if err != nil {
-		return &odoo.MemberProfiles{}, fmt.Errorf("finding member profiles: %w", err)
+		return &ms.MemberProfiles{}, fmt.Errorf("finding member profiles: %w", err)
 	}
 
 	return profiles, nil

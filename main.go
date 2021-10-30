@@ -6,8 +6,9 @@ import (
 	"os"
 	"strconv"
 
+	"bitbucket.org/long174/go-odoo"
 	"github.com/emersion/go-vcard"
-	"github.com/spejder/ms-vcard/internal/odoo"
+	"github.com/spejder/ms-vcard/internal/ms"
 )
 
 func main() {
@@ -48,7 +49,7 @@ func handler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	c, err := odoo.NewClient(&odoo.ClientConfig{
+	oc, err := odoo.NewClient(&odoo.ClientConfig{
 		Admin:    username,
 		Password: password,
 		Database: os.Getenv("MS_DATABASE"),
@@ -59,6 +60,8 @@ func handler(w http.ResponseWriter, r *http.Request) {
 
 		return
 	}
+
+	c := &ms.Client{Client: *oc}
 
 	defer c.Close()
 
@@ -92,12 +95,12 @@ func handler(w http.ResponseWriter, r *http.Request) {
 
 	for _, profile := range *profiles {
 		relIDs := profile.RelationAllIds.Get()
-		relations := &odoo.ResPartnerRelationAlls{}
+		relations := &ms.ResPartnerRelationAlls{}
 
 		if r.URL.Query().Has("relations") && len(relIDs) > 0 {
 			relations, err = c.GetResPartnerRelationAlls(relIDs)
 			if err != nil {
-				relations = &odoo.ResPartnerRelationAlls{}
+				relations = &ms.ResPartnerRelationAlls{}
 			}
 		}
 
@@ -112,7 +115,7 @@ func handler(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-func switchCompany(c *odoo.Client, companyIDParam string) error {
+func switchCompany(c *ms.Client, companyIDParam string) error {
 	if companyIDParam == "" {
 		return nil
 	}
