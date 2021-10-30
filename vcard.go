@@ -32,7 +32,16 @@ func toCard(profile ms.MemberProfile, relations *ms.ResPartnerRelationAlls) vcar
 	}
 
 	if profile.ScoutName != nil {
-		card.SetValue("NICKNAME;TYPE=Spejdernavn", profile.ScoutName.Get())
+		//nolint:exhaustivestruct
+		card.Set("NICKNAME", &vcard.Field{
+			Value: profile.ScoutName.Get(),
+			Group: "item1",
+		})
+		//nolint:exhaustivestruct
+		card.Set("X-ABLabel", &vcard.Field{
+			Value: "_$!<Spejdernavn>!$_",
+			Group: "item1",
+		})
 	}
 
 	if profile.Birthdate != nil {
