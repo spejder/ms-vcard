@@ -10,7 +10,7 @@ RUN apk --no-cache add git=~2
 COPY *.go go.mod go.sum /build/github.com/spejder/ms-vcard/
 COPY internal/ms/ /build/github.com/spejder/ms-vcard/internal/ms/
 
-RUN go build
+RUN go build -tags docker
 
 FROM scratch
 
