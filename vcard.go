@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"math/rand"
+	"strings"
 
 	"github.com/emersion/go-vcard"
 	"github.com/google/uuid"
@@ -101,7 +102,8 @@ func toCard(profile ms.MemberProfile, relations *ms.ResPartnerRelationAlls) vcar
 	}
 
 	for _, relation := range *relations {
-		card.AddValue("RELATED", getUUID(relation.OtherPartnerId.ID))
+		related := strings.TrimSpace(strings.Replace(relation.DisplayName.Get(), profile.DisplayName.Get(), "", 1))
+		card.AddValue("RELATED", related)
 	}
 
 	vcard.ToV4(card)
