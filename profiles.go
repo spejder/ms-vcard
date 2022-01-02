@@ -18,6 +18,7 @@ func profiles(c *ms.Client) (*ms.MemberProfiles, error) {
 	options := odoo.NewOptions().FetchFields(
 		"birthdate",
 		"city",
+		"display_name",
 		"email",
 		"firstname",
 		"id",
