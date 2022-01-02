@@ -102,8 +102,15 @@ func toCard(profile ms.MemberProfile, relations *ms.ResPartnerRelationAlls) vcar
 	}
 
 	for _, relation := range *relations {
+		text := vcard.Params{}
+		text.Set("VALUE", "text")
 		related := strings.TrimSpace(strings.Replace(relation.DisplayName.Get(), profile.DisplayName.Get(), "", 1))
-		card.AddValue("RELATED", related)
+
+		//nolint:exhaustivestruct
+		card.Add("RELATED", &vcard.Field{
+			Value:  related,
+			Params: text,
+		})
 	}
 
 	vcard.ToV4(card)
