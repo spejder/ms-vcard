@@ -34,7 +34,7 @@ func toCard(profile ms.MemberProfile, relations *ms.ResPartnerRelationAlls) vcar
 
 	if profile.MemberNumber != nil {
 		//nolint:exhaustivestruct
-		card.Set("NOTE", &vcard.Field{
+		card.Add("NOTE", &vcard.Field{
 			Value: fmt.Sprintf("Medlemsnummer: %s", profile.MemberNumber.Get()),
 			Group: MemberNumber.Group(),
 		})
@@ -102,14 +102,11 @@ func toCard(profile ms.MemberProfile, relations *ms.ResPartnerRelationAlls) vcar
 	}
 
 	for _, relation := range *relations {
-		text := vcard.Params{}
-		text.Set("VALUE", "text")
 		related := strings.TrimSpace(strings.Replace(relation.DisplayName.Get(), profile.DisplayName.Get(), "", 1))
 
 		//nolint:exhaustivestruct
-		card.Add("RELATED", &vcard.Field{
-			Value:  related,
-			Params: text,
+		card.Add("NOTE", &vcard.Field{
+			Value: related,
 		})
 	}
 
