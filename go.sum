@@ -1,5 +1,5 @@
-bitbucket.org/long174/go-odoo v1.6.6 h1:PLpiS3Tc3A9TQn83N6QitNz7UXExGhyAULL1EWUWVaI=
-bitbucket.org/long174/go-odoo v1.6.6/go.mod h1:KglL89dM63Hb/sdlhFNUc5bvvOcp6MvEd1ydw8icXmQ=
+bitbucket.org/long174/go-odoo v1.6.7 h1:4Txtko/75fpjXHZXPIGojk/32xDrRDqM8tGzcwyTnZ8=
+bitbucket.org/long174/go-odoo v1.6.7/go.mod h1:KglL89dM63Hb/sdlhFNUc5bvvOcp6MvEd1ydw8icXmQ=
 cloud.google.com/go v0.26.0/go.mod h1:aQUYkXzVsufM+DwF1aE+0xfcU+56JwCaLick0ClmMTw=
 github.com/BurntSushi/toml v0.3.1/go.mod h1:xHWCNGjB5oqiDr8zfno3MHue2Ht5sIBksp03qcyfWMU=
 github.com/OneOfOne/xxhash v1.2.2/go.mod h1:HSdplMjZKSmBqAxg5vPj2TmRDmfkzw+cTzAElWljhcU=
