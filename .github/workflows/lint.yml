@@ -39,4 +39,3 @@ jobs:
         with:
           version: latest
           only-new-issues: true
-          skip-go-installation: true
