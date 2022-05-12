@@ -1,5 +1,9 @@
 linters:
   enable-all: true
+  disable:
+    - execinquery
+    - exhaustruct
+    - varnamelen
 run:
   skip-dirs:
     - internal/ms
