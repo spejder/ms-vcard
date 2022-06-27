@@ -44,11 +44,13 @@ ADR:;;Ejbysvinget 18;Glostrup;;2600;
 BDAY:19730430
 EMAIL:arne@arnested.dk
 N:Jørgensen;Arne;;;
-NICKNAME:Boga
-NOTE:Medlemsnummer: 2014080
+item1.NICKNAME:Boga
+item2.NOTE:Medlemsnummer: 2014080
+NOTE:Forældre til Nanna Ella Raun-Jørgensen
 ORG:Ejby Gruppe
-RELATED:urn:uuid:be90ae96-4c60-482c-b8fa-8dab6678dd60
 TEL;TYPE=cell:+4521650113
-UID:urn:uuid:741ecef2-866b-48fb-9460-695dc848c550
+UID:urn:uuid:ee007e12-46ec-498c-a1c1-760a697181c2
+item2.X-ABLabel:_$!<Medlemsnummer>!$_
+item1.X-ABLabel:_$!<Spejdernavn>!$_
 END:VCARD
 ```
