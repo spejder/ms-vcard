@@ -1,6 +1,6 @@
 module github.com/spejder/ms-vcard
 
-go 1.18
+go 1.19
 
 require (
 	bitbucket.org/long174/go-odoo v1.8.0
