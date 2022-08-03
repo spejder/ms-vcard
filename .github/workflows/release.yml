@@ -6,6 +6,10 @@ on:
     types:
       - completed
 
+permissions:
+  contents: write
+  actions: read
+
 jobs:
   release:
     runs-on: ubuntu-latest
@@ -17,9 +21,28 @@ jobs:
         uses: anothrNick/github-tag-action@1.39.0
         id: version
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           WITH_V: true
           DEFAULT_BUMP: patch
+          DRY_RUN: true
+      - name: Create release
+        uses: actions/github-script@v6
+        env:
+          RELEASE_TAG: ${{ steps.version.outputs.new_tag }}
+        with:
+          script: |
+            try {
+              await github.rest.repos.createRelease({
+                draft: false,
+                generate_release_notes: true,
+                name: process.env.RELEASE_TAG,
+                owner: context.repo.owner,
+                prerelease: false,
+                repo: context.repo.repo,
+                tag_name: process.env.RELEASE_TAG,
+              });
+            } catch (error) {
+              core.setFailed(error.message);
+            }
       - name: Set up Docker Buildx
         id: buildx
         uses: docker/setup-buildx-action@v2
@@ -28,7 +51,7 @@ jobs:
         with:
           registry: ghcr.io
           username: ${{ github.repository_owner }}
-          password: ${{ secrets.GITHUB_TOKEN }}
+          password: ${{ github.token }}
       - name: Build and push Docker image
         uses: docker/build-push-action@v3
         with:
@@ -37,18 +60,7 @@ jobs:
           context: .
           labels: |
             org.opencontainers.image.source=https://github.com/${{ github.repository }}
-            org.opencontainers.image.version=${{ github.sha }}
+            org.opencontainers.image.version=${{ steps.version.outputs.new_tag }}
             org.opencontainers.image.revision=${{ github.sha }}
           tags: |
             ghcr.io/${{ github.repository }}:latest
-      - name: Build ChangeLog
-        if: ${{ steps.version.outputs.new_tag }} != ''
-        run: npx conventional-changelog-cli --release-count=2 --outfile="${{ runner.temp }}/ChangeLog.md"
-      - name: Create release ${{ steps.version.outputs.new_tag }}
-        if: ${{ steps.version.outputs.new_tag }} != ""
-        uses: ncipollo/release-action@v1
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          tag: ${{ steps.version.outputs.new_tag }}
-          name: Release ${{ steps.version.outputs.new_tag }}
-          bodyFile: ${{ runner.temp }}/ChangeLog.md
