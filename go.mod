@@ -3,7 +3,7 @@ module github.com/spejder/ms-vcard
 go 1.19
 
 require (
-	bitbucket.org/long174/go-odoo v1.9.0
+	bitbucket.org/long174/go-odoo v1.10.0
 	github.com/emersion/go-vcard v0.0.0-20220507122617-d4056df0ec4a
 	github.com/google/uuid v1.3.0
 	go.uber.org/automaxprocs v1.5.1
