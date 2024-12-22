@@ -4,7 +4,7 @@ on: pull_request
 jobs:
   dockerfile:
     name: dockerfile
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4
       - name: Run hadolint
@@ -14,7 +14,7 @@ jobs:
 
   markdownlint:
     name: markdown
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
     - uses: actions/checkout@v4
     - name: Run markdownlint
@@ -22,7 +22,7 @@ jobs:
 
   golangci:
     name: go
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4
       - uses: arnested/go-version-action@v1
