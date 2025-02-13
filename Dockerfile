@@ -1,4 +1,4 @@
-FROM docker.io/golang:1.23.6-alpine AS build-env
+FROM docker.io/golang:1.24.0-alpine AS build-env
 
 WORKDIR /build/github.com/spejder/ms-vcard
 
