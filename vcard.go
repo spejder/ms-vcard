@@ -35,7 +35,7 @@ func toCard(profile ms.MemberProfile, relations *ms.ResPartnerRelationAlls) vcar
 	if profile.MemberNumber != nil {
 		//nolint:exhaustivestruct
 		card.Add("NOTE", &vcard.Field{
-			Value: fmt.Sprintf("Medlemsnummer: %s", profile.MemberNumber.Get()),
+			Value: "Medlemsnummer: %s" + profile.MemberNumber.Get(),
 			Group: MemberNumber.Group(),
 		})
 		//nolint:exhaustivestruct
