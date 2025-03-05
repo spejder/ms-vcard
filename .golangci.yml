@@ -1,12 +1,14 @@
 linters:
   enable-all: true
   disable:
-    - execinquery
+    - depguard
     - exhaustruct
     - varnamelen
-run:
-  skip-dirs:
+
+issues:
+  exclude-dirs:
     - internal/ms
+
 linters-settings:
   exhaustive:
     # indicates that switch statements are to be considered exhaustive if a

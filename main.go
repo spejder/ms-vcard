@@ -16,6 +16,7 @@ func main() {
 
 	http.HandleFunc("/", handler)
 
+	//nolint:gosec
 	err := http.ListenAndServe(addr, nil)
 	if err != nil {
 		panic(err)
