@@ -121,7 +121,6 @@ func switchCompany(c *ms.Client, companyIDParam string) error {
 		return nil
 	}
 
-	//nolint:gomnd
 	companyID, err := strconv.ParseInt(companyIDParam, 10, 64)
 	if err != nil {
 		return fmt.Errorf("switching company parameters: %w", err)
@@ -130,7 +129,6 @@ func switchCompany(c *ms.Client, companyIDParam string) error {
 	err = c.Update(
 		odoo.ResUsersModel,
 		[]int64{c.UID()},
-		//nolint:exhaustivestruct
 		&odoo.ResUsers{
 			CompanyId: &odoo.Many2One{ID: companyID},
 		})
