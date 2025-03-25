@@ -26,19 +26,16 @@ func toCard(profile ms.MemberProfile, relations *ms.ResPartnerRelationAlls) vcar
 	card := vcard.Card{}
 	card.SetValue(vcard.FieldUID, getUUID(profile.PartnerId.ID))
 
-	//nolint:exhaustivestruct
 	card.AddName(&vcard.Name{
 		FamilyName: profile.Lastname.Get(),
 		GivenName:  profile.Firstname.Get(),
 	})
 
 	if profile.MemberNumber != nil {
-		//nolint:exhaustivestruct
 		card.Add("NOTE", &vcard.Field{
 			Value: "Medlemsnummer: %s" + profile.MemberNumber.Get(),
 			Group: MemberNumber.Group(),
 		})
-		//nolint:exhaustivestruct
 		card.Add("X-ABLabel", &vcard.Field{
 			Value: "_$!<Medlemsnummer>!$_",
 			Group: MemberNumber.Group(),
@@ -46,7 +43,6 @@ func toCard(profile ms.MemberProfile, relations *ms.ResPartnerRelationAlls) vcar
 	}
 
 	if profile.Street != nil {
-		//nolint:exhaustivestruct
 		card.AddAddress(&vcard.Address{
 			StreetAddress: profile.Street.Get(),
 			Locality:      profile.City.Get(),
@@ -55,12 +51,10 @@ func toCard(profile ms.MemberProfile, relations *ms.ResPartnerRelationAlls) vcar
 	}
 
 	if profile.ScoutName != nil {
-		//nolint:exhaustivestruct
 		card.Set("NICKNAME", &vcard.Field{
 			Value: profile.ScoutName.Get(),
 			Group: ScoutName.Group(),
 		})
-		//nolint:exhaustivestruct
 		card.Add("X-ABLabel", &vcard.Field{
 			Value: "_$!<Spejdernavn>!$_",
 			Group: ScoutName.Group(),
@@ -83,7 +77,6 @@ func toCard(profile ms.MemberProfile, relations *ms.ResPartnerRelationAlls) vcar
 		home := vcard.Params{}
 		home.Set("TYPE", "home")
 
-		//nolint:exhaustivestruct
 		card.Set("TEL", &vcard.Field{
 			Value:  profile.Phone.Get(),
 			Params: home,
@@ -94,7 +87,6 @@ func toCard(profile ms.MemberProfile, relations *ms.ResPartnerRelationAlls) vcar
 		cell := vcard.Params{}
 		cell.Set("TYPE", "cell")
 
-		//nolint:exhaustivestruct
 		card.Set("TEL", &vcard.Field{
 			Value:  profile.MobileClean.Get(),
 			Params: cell,
@@ -104,7 +96,6 @@ func toCard(profile ms.MemberProfile, relations *ms.ResPartnerRelationAlls) vcar
 	for _, relation := range *relations {
 		related := strings.TrimSpace(strings.Replace(relation.DisplayName.Get(), profile.DisplayName.Get(), "", 1))
 
-		//nolint:exhaustivestruct
 		card.Add("NOTE", &vcard.Field{
 			Value: related,
 		})
