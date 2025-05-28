@@ -33,7 +33,7 @@ func toCard(profile ms.MemberProfile, relations *ms.ResPartnerRelationAlls) vcar
 
 	if profile.MemberNumber != nil {
 		card.Add("NOTE", &vcard.Field{
-			Value: "Medlemsnummer: %s" + profile.MemberNumber.Get(),
+			Value: "Medlemsnummer: " + profile.MemberNumber.Get(),
 			Group: MemberNumber.Group(),
 		})
 		card.Add("X-ABLabel", &vcard.Field{
