@@ -62,7 +62,7 @@ func toCard(profile ms.MemberProfile, relations *ms.ResPartnerRelationAlls) vcar
 	}
 
 	if profile.Birthdate != nil {
-		card.SetValue("BDAY", profile.Birthdate.Get().Format("20060102"))
+		card.SetValue("BDAY", profile.Birthdate.Get().Format("2006-01-02"))
 	}
 
 	if profile.OrganizationId != nil {
