@@ -9,4 +9,7 @@ require (
 	go.uber.org/automaxprocs v1.6.0
 )
 
-require github.com/kolo/xmlrpc v0.0.0-20201022064351-38db28db192b // indirect
+require (
+	github.com/kolo/xmlrpc v0.0.0-20201022064351-38db28db192b // indirect
+	golang.org/x/crypto/x509roots/fallback v0.0.0-20251210140736-7dacc380ba00 // indirect
+)

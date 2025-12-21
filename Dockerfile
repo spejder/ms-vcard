@@ -19,6 +19,5 @@ EXPOSE 80
 ENV PATH=/
 
 COPY --from=build-env /build/github.com/spejder/ms-vcard/ms-vcard /ms-vcard
-COPY --from=build-env /etc/ssl/certs/ /etc/ssl/certs/
 
 ENTRYPOINT ["/ms-vcard"]
