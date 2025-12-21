@@ -1,3 +1,4 @@
+---
 permissions:
   contents: read
 name: Lint
@@ -18,21 +19,35 @@ jobs:
     name: markdown
     runs-on: ubuntu-24.04
     steps:
-    - uses: actions/checkout@v6
-    - name: Run markdownlint
-      uses: DavidAnson/markdownlint-cli2-action@v22
+      - uses: actions/checkout@v6
+      - name: Run markdownlint
+        uses: DavidAnson/markdownlint-cli2-action@v22
+
+  actionlint:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v6
+      - uses: reviewdog/action-actionlint@v1
+
+  yamllint:
+    name: Yamllint
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v6
+      - name: Run Yamllint
+        uses: frenck/action-yamllint@v1.5.0
+        with:
+          strict: true
 
   golangci:
     name: go
     runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v6
-      - uses: arnested/go-version-action@v1
-        id: go-version
-      - name: Setup Go ${{ steps.go-version.outputs.minimal }}
-        uses: WillAbides/setup-go-faster@v1.14.0
+      - name: Setup Go
+        uses: actions/setup-go@v6
         with:
-          go-version: ${{ steps.go-version.outputs.minimal }}
+          go-version-file: go.mod
       - run: go version
       - name: golangci-lint
         uses: golangci/golangci-lint-action@v9
