@@ -6,6 +6,7 @@ linters:
     - depguard
     - exhaustruct
     - varnamelen
+    - wsl
   settings:
     exhaustive:
       default-signifies-exhaustive: true
