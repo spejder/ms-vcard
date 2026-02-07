@@ -1,12 +1,12 @@
 module github.com/spejder/ms-vcard
 
-go 1.24.1
+go 1.25.7
 
 require (
 	bitbucket.org/long174/go-odoo v1.12.1
 	github.com/emersion/go-vcard v0.0.0-20220507122617-d4056df0ec4a
 	github.com/google/uuid v1.6.0
-	go.uber.org/automaxprocs v1.6.0
+	golang.org/x/crypto/x509roots/fallback v0.0.0-20251210140736-7dacc380ba00
 )
 
 require (
@@ -52,7 +52,6 @@ require (
 	go.uber.org/nilaway v0.0.0-20260207005031-919d6741d2eb // indirect
 	go.yaml.in/yaml/v3 v3.0.4 // indirect
 	golang.org/x/crypto v0.45.0 // indirect
-	golang.org/x/crypto/x509roots/fallback v0.0.0-20251210140736-7dacc380ba00 // indirect
 	golang.org/x/mod v0.29.0 // indirect
 	golang.org/x/net v0.47.0 // indirect
 	golang.org/x/sync v0.18.0 // indirect
