@@ -1,23 +1,8 @@
-FROM docker.io/golang:1.25.6-alpine AS build-env
-
-WORKDIR /build/github.com/spejder/ms-vcard
-
-ENV CGO_ENABLED=0
-ENV GOOS=linux
-
-RUN apk --no-cache add git=~2
-
-COPY *.go go.mod go.sum /build/github.com/spejder/ms-vcard/
-COPY internal/ms/ /build/github.com/spejder/ms-vcard/internal/ms/
-
-RUN go build
-
 FROM scratch
 
 EXPOSE 80
 
-ENV PATH=/
-
-COPY --from=build-env /build/github.com/spejder/ms-vcard/ms-vcard /ms-vcard
+ARG TARGETPLATFORM
+COPY $TARGETPLATFORM/ms-vcard /ms-vcard
 
 ENTRYPOINT ["/ms-vcard"]
