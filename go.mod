@@ -4,9 +4,9 @@ go 1.25.7
 
 require (
 	bitbucket.org/long174/go-odoo v1.12.1
-	github.com/emersion/go-vcard v0.0.0-20220507122617-d4056df0ec4a
+	github.com/emersion/go-vcard v0.0.0-20241024213814-c9703dde27ff
 	github.com/google/uuid v1.6.0
-	golang.org/x/crypto/x509roots/fallback v0.0.0-20251210140736-7dacc380ba00
+	golang.org/x/crypto/x509roots/fallback v0.0.0-20260113154411-7d0074ccc6f1
 )
 
 require (
@@ -31,7 +31,7 @@ require (
 	github.com/jbenet/go-context v0.0.0-20150711004518-d14ea06fba99 // indirect
 	github.com/kevinburke/ssh_config v1.2.0 // indirect
 	github.com/klauspost/compress v1.18.0 // indirect
-	github.com/kolo/xmlrpc v0.0.0-20201022064351-38db28db192b // indirect
+	github.com/kolo/xmlrpc v0.0.0-20220921171641-a4b6fa1dd06b // indirect
 	github.com/mitchellh/copystructure v1.2.0 // indirect
 	github.com/mitchellh/reflectwalk v1.0.2 // indirect
 	github.com/pelletier/go-toml/v2 v2.2.4 // indirect
