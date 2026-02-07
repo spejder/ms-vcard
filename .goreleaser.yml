@@ -1,18 +1,29 @@
 ---
 version: 2
 builds:
-  - env:
+  - id: default
+    env:
       - CGO_ENABLED=0
-    goos:
-      - linux
+    mod_timestamp: "{{ .CommitTimestamp }}"
     flags:
       - -trimpath
     ldflags:
-      - -s -w -X main.version={{.Tag}} -X main.Date={{.CommitDate}}
-    mod_timestamp: '{{.CommitTimestamp}}'
+      - -s -w -X main.version={{.Version}} -X main.commit={{.Commit}} -X main.date={{ .CommitDate }}
+  - id: with-certs
+    env:
+      - CGO_ENABLED=0
+    tags:
+      - certs
+    mod_timestamp: "{{ .CommitTimestamp }}"
+    flags:
+      - -trimpath
+    ldflags:
+      - -s -w -X main.version={{.Version}} -X main.commit={{.Commit}} -X main.date={{ .CommitDate }}
 archives:
   - formats:
       - binary
+    ids:
+      - default
     name_template: >-
       {{ .ProjectName }}_
       {{- if eq .Os "linux" }}Linux
@@ -20,6 +31,24 @@ archives:
       {{- if eq .Arch "amd64" }}x86_64
       {{- else if eq .Arch "386" }}i386
       {{- else }}{{ .Arch }}{{ end }}
+dockers_v2:
+  - images:
+      - 'ghcr.io/arnested/{{ .ProjectName }}'
+    tags:
+      - '{{ .Tag }}'
+      - 'v{{ .Major }}'
+      - 'latest'
+    ids:
+      - with-certs
+    sbom: false
+    labels:
+      "org.opencontainers.image.authors": "Arne Jørgensen <arne@arnested.dk>"
+      "org.opencontainers.image.created": "{{.CommitDate}}"
+      "org.opencontainers.image.licenses": "MIT"
+      "org.opencontainers.image.revision": "{{.FullCommit}}"
+      "org.opencontainers.image.source": "https://github.com/arnested/{{.ProjectName}}"
+      "org.opencontainers.image.title": "{{.ProjectName}}"
+      "org.opencontainers.image.version": "{{.Version}}"
 checksum:
   name_template: 'checksums.txt'
 snapshot:
@@ -32,21 +61,3 @@ changelog:
       - '^test:'
 release:
   prerelease: auto
-
-dockers_v2:
-  - images:
-      - 'arnested/{{ .ProjectName }}'
-    tags:
-      - '{{ .Tag }}'
-      - 'v{{ .Major }}'
-      - 'latest'
-    sbom: true
-    labels:
-      "org.opencontainers.image.created": "{{.CommitDate}}"
-      "org.opencontainers.image.revision": "{{.FullCommit}}"
-      "org.opencontainers.image.source": "https://github.com/arnested/{{.ProjectName}}"
-      "org.opencontainers.image.title": "ms-vcard"
-      "org.opencontainers.image.description": "VCards for your Medlemsservice contacts"
-      "org.opencontainers.image.version": "{{.Version}}"
-      "org.opencontainers.image.licenses": "MIT"
-      "org.opencontainers.image.authors": "Arne Jørgensen <arne@arnested.dk>"
