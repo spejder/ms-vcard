@@ -8,7 +8,7 @@ on:
       - completed
 permissions:
   contents: write
-  actions: read
+  packages: write
 jobs:
   bump-version:
     runs-on: ubuntu-24.04
