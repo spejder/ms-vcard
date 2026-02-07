@@ -9,7 +9,6 @@ import (
 	"bitbucket.org/long174/go-odoo"
 	"github.com/emersion/go-vcard"
 	"github.com/spejder/ms-vcard/internal/ms"
-	_ "golang.org/x/crypto/x509roots/fallback"
 )
 
 func main() {
