@@ -33,7 +33,7 @@ archives:
       {{- else }}{{ .Arch }}{{ end }}
 dockers_v2:
   - images:
-      - 'ghcr.io/arnested/{{ .ProjectName }}'
+      - 'ghcr.io/spejder/{{ .ProjectName }}'
     tags:
       - '{{ .Tag }}'
       - 'v{{ .Major }}'
@@ -46,7 +46,7 @@ dockers_v2:
       "org.opencontainers.image.created": "{{.CommitDate}}"
       "org.opencontainers.image.licenses": "MIT"
       "org.opencontainers.image.revision": "{{.FullCommit}}"
-      "org.opencontainers.image.source": "https://github.com/arnested/{{.ProjectName}}"
+      "org.opencontainers.image.source": "https://github.com/spejder/{{.ProjectName}}"
       "org.opencontainers.image.title": "{{.ProjectName}}"
       "org.opencontainers.image.version": "{{.Version}}"
 checksum:
