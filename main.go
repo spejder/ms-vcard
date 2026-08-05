@@ -5,19 +5,35 @@ import (
 	"net/http"
 	"os"
 	"strconv"
+	"time"
 
 	"bitbucket.org/long174/go-odoo"
 	"github.com/emersion/go-vcard"
 	"github.com/spejder/ms-vcard/internal/ms"
 )
 
-func main() {
-	addr := getAddr()
+const (
+	readHeaderTimeout = 10 * time.Second
+	readTimeout       = 15 * time.Second
+	// Looking up profiles in Medlemsservice is slow (~890 contacts takes
+	// more than half a minute), so allow plenty of headroom.
+	writeTimeout = 5 * time.Minute
+	idleTimeout  = 60 * time.Second
+)
 
+func main() {
 	http.HandleFunc("/", handler)
 
-	//nolint:gosec
-	err := http.ListenAndServe(addr, nil)
+	srv := &http.Server{
+		Addr:              getAddr(),
+		Handler:           http.DefaultServeMux,
+		ReadHeaderTimeout: readHeaderTimeout,
+		ReadTimeout:       readTimeout,
+		WriteTimeout:      writeTimeout,
+		IdleTimeout:       idleTimeout,
+	}
+
+	err := srv.ListenAndServe()
 	if err != nil {
 		panic(err)
 	}
