@@ -4,7 +4,7 @@ go 1.27.0
 
 require (
 	bitbucket.org/long174/go-odoo v1.12.1
-	github.com/emersion/go-vcard v0.0.0-20241024213814-c9703dde27ff
+	github.com/emersion/go-vcard v0.1.0
 	github.com/google/uuid v1.6.0
 	golang.org/x/crypto/x509roots/fallback v0.0.0-20260113154411-7d0074ccc6f1
 )
