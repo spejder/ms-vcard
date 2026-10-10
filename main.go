@@ -49,7 +49,7 @@ func getAddr() string {
 	return addr
 }
 
-//nolint:funlen,cyclop
+//nolint:funlen
 func handler(w http.ResponseWriter, r *http.Request) {
 	defer func() {
 		if r := recover(); r != nil {
@@ -100,26 +100,26 @@ func handler(w http.ResponseWriter, r *http.Request) {
 		}
 	}()
 
-	profiles, err := profiles(c)
+	withRelations := r.URL.Query().Has("relations")
+
+	profiles, err := profiles(c, withRelations)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 
 		return
 	}
 
+	relByID := map[int64]ms.ResPartnerRelationAll{}
+
+	if withRelations {
+		relByID = relationsByID(c, profiles)
+	}
+
 	enc := vcard.NewEncoder(w)
 	w.Header().Set("Content-Type", "text/vcard; charset=utf-8")
 
 	for _, profile := range *profiles {
-		relIDs := profile.RelationAllIds.Get()
-		relations := &ms.ResPartnerRelationAlls{}
-
-		if r.URL.Query().Has("relations") && len(relIDs) > 0 {
-			relations, err = c.GetResPartnerRelationAlls(relIDs)
-			if err != nil {
-				relations = &ms.ResPartnerRelationAlls{}
-			}
-		}
+		relations := profileRelations(profile.RelationAllIds.Get(), relByID)
 
 		card := toCard(profile, relations)
 
